@@ -21,7 +21,9 @@ router.post("/login", async (req, res) => {
   // Login a registered user
   try {
     const { email, password } = req.body;
+
     const user = await User.findByCredentials(email, password);
+
     if (!user) {
       return res
         .status(401)
@@ -30,14 +32,13 @@ router.post("/login", async (req, res) => {
     const token = await user.generateAuthToken();
     res.send({ user, token });
   } catch (error) {
-    res.status(400).send(error);
+    res.status(400).send(error.message);
   }
 });
 
 router.get("/me", auth, async (req, res) => {
   // View logged in user profile
   res.send(req.user)
-  return
   res.send({
     name: req.user.name,
     email: req.user.email,
