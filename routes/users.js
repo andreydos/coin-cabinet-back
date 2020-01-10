@@ -12,7 +12,9 @@ router.post("/register", async (req, res) => {
     const token = await user.generateAuthToken();
     res.status(201).send({ user, token });
   } catch (error) {
-    res.status(400).send(error);
+    res
+      .status(400)
+      .send(error.code !== 11000 ? error : { message: "User already exist!" });
   }
 });
 
@@ -32,13 +34,13 @@ router.post("/login", async (req, res) => {
     const token = await user.generateAuthToken();
     res.send({ user, token });
   } catch (error) {
-    res.status(400).send(error.message);
+    res.status(400).send(error.message || error);
   }
 });
 
 router.get("/me", auth, async (req, res) => {
   // View logged in user profile
-  res.send(req.user)
+  res.send(req.user);
   res.send({
     name: req.user.name,
     email: req.user.email,

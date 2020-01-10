@@ -30,6 +30,17 @@ app.use(
 );
 app.use(express.static(path.join(__dirname, "public")));
 
+// TEMP: for dev purposes
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Authorization, Origin, X-Requested-With, Content-Type, Accept",
+  );
+  res.header("Access-Control-Allow-Methods", "GET,POST");
+  next();
+});
+
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 
