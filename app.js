@@ -7,6 +7,7 @@ const sassMiddleware = require("node-sass-middleware");
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
+const walletsRouter = require("./routes/wallets");
 
 require("./db/db");
 
@@ -43,6 +44,7 @@ app.use((req, res, next) => {
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/wallets", walletsRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

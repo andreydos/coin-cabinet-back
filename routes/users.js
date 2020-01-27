@@ -29,10 +29,16 @@ router.post("/login", async (req, res) => {
     if (!user) {
       return res
         .status(401)
-        .send({ error: "Login failed! Check authentication credentials" });
+        .send({ message: "Check authentication credentials." });
     }
     const token = await user.generateAuthToken();
-    res.send({ user, token });
+    res.send({
+      user: {
+        email: user.email,
+        baseCurrency: email.baseCurrency,
+      },
+      token,
+    });
   } catch (error) {
     res.status(400).send(error.message || error);
   }

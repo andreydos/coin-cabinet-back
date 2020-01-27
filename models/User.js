@@ -9,19 +9,9 @@ const userSchema = mongoose.Schema({
     required: false,
     trim: true,
   },
-  two_factor_auth: {
-    is_enabled: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  is_blocked: {
-    type: Boolean,
-    default: false,
-  },
-  btc_wallet: {
+  baseCurrency: {
     type: String,
-    default: "",
+    default: "USD",
   },
   email: {
     type: String,
